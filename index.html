@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Plane ticket</title>
+	<meta charset="UTF-8">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/styles/main.css">
+</head>
+<body ng-app="planeticketApp">
+	<div class="container" ng-controller="HomeController">
+		<header>
+			<h1> Plane Ticket Street art Tour</h1>
+
+		</header>
+
+		<!-- ********* NAV ************-->
+		<section>
+			<ul class="nav nav-tabs responsive" role="tablist" id="appTab">
+				<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Accueil</a></li>
+		    	<li role="presentation"><a href="#customer" aria-controls="clients" role="tab" data-toggle="tab">Client</a></li>
+		    	<li role="presentation"><a href="#flights" aria-controls="vols" role="tab" data-toggle="tab">Vols</a></li>
+		    	<li role="presentation"><a href="#custofly" aria-controls="synthèse" role="tab" data-toggle="tab">Synthèse</a></li>
+			</ul>
+		
+			<!-- Tab panes -->
+			<div class="tab-content responsive">
+	
+			<!-- ********* Client ************-->
+				<div role="tabpanel" class="tab-pane active" id="home">
+					<p class="text-justify lead">
+						Enregistrez-vous <br/> Sélectionnez le vols qui vous fait rêver!<br/>
+						Nous nous occupons de tout le reste... <br/>
+						Visualisez votre sélection dans la synthèse.
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, amet tempore nemo voluptate voluptatem est nisi corporis? Sint, ipsam. Blanditiis provident, non odio incidunt nemo asperiores reiciendis in. Deserunt, numquam!
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia tempore totam recusandae rem quidem officia excepturi iste quas aliquam, iure. Quis soluta tenetur rem aut facere, libero, neque ipsa ullam.
+					</p>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="customer">
+					<form name="custoForm" class="form-horizontal" ng-submit="custoForm.$valid && saveCustomer()">
+						<div class="form-group">
+							<label for="name" class="hidden-xs hidden-sm col-md-2">Nom</label>
+							<div class="col-sm-12 col-md-10">
+								<input type="text" ng-model="custo.name" class="form-control" id="name" placeholder="Nom" ng-disabled="custoDisabled">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="surname" class="hidden-xs hidden-sm col-md-2">Prénom</label>
+    						<div class="col-sm-12 col-md-10">
+    							<input type="text" ng-model="custo.surname" class="form-control" id="surname" placeholder="Prénom" ng-disabled="custoDisabled">
+    						</div>
+						</div>
+    					<div class="form-group">
+							<label for="phone" class="hidden-xs hidden-sm col-md-2">Tél</label>
+    						<div class="col-sm-12 col-md-10">
+    							<input type="text"
+    							 ng-model="custo.phone" class="form-control" id="phone" placeholder="Tél"  ng-disabled="custoDisabled">
+    							 <span class="text-danger col-sm-offset-3" ng-show="!custoForm.$valid">
+                    				Numéro de téléphone non valide!
+                				</span>
+    						</div>
+						</div>
+    					<div class="form-group">
+							<label for="email" class="hidden-xs hidden-sm col-md-2">Email</label>
+    						<div class="col-sm-12 col-md-10">
+    							<input type="email" ng-model="custo.email" class="form-control" id="email" placeholder="Email"  ng-disabled="custoDisabled">
+    							<span class="text-danger col-sm-offset-3" ng-show="custoForm.email.$error">
+                    				Email non valide!
+                				</span>
+    						</div>
+						</div>
+						<button type="submit" class="btn btn-primary btn-lg">Enregistrez-vous</button>
+
+					</form>
+				</div>
+				
+				<!-- ********* FLIGTHS Caroussel ************-->
+				<div role="tabpanel" class="tab-pane" id="flights">
+					<div id="flyCarousel" class="carousel slide" data-ride="carousel">
+						<!-- Indicators -->
+						<ol class="carousel-indicators">
+							<li data-target="#flyCarousel" data-slide-to="0" class="active"></li>
+							<li data-target="#flyCarousel" data-slide-to="1"></li>
+							<li data-target="#flyCarousel" data-slide-to="2"></li>
+							<li data-target="#flyCarousel" data-slide-to="3"></li>
+						</ol>
+
+						<!-- Wrapper for slides -->
+						<div class="carousel-inner" role="listbox">
+							<div class="item active flyOkClass" ng-class="carsalvador">
+								<label>
+								<img src="/planeticket/assets/images/salvador.jpg" alt="salvador">
+								Salvador Da Bahia
+								<button ng-show="btnSalvador" class="btn btn-success ng-hide" ng-click="validateFly('salvador')">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+								</button>
+								<button ng-show="!btnSalvador"  class="btn btn-danger ng-hide" ng-click="cancelFly('salvador')">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</button>
+
+								</label>
+							</div>
+
+							<div class="item" ng-class="carbarcelona">
+								<label>
+									<img src="/planeticket/assets/images/barcelona.jpg" alt="barcelona">
+									Barcelona
+									<button  ng-show="btnBarcelona" class="btn btn-success ng-hide" ng-click="validateFly('barcelona')">
+										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									</button>
+								 	<button  ng-show="!btnBarcelona" class="btn btn-danger ng-hide" ng-click="cancelFly('barcelona')">
+								 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								 	</button>
+								</label>
+							</div>
+
+							<div class="item" ng-class="carlisboa">
+								<label>
+									<img src="/planeticket/assets/images/lisboa.jpg" alt="lisboa">
+									Lisboa
+									<button ng-show="btnLisboa" class="btn btn-success ng-hide" ng-click="validateFly('lisboa')">
+										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									</button>
+								 	<button ng-show="!btnLisboa" class="btn btn-danger ng-hide" ng-click="cancelFly('lisboa')">
+								 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								 	</button>
+								</label>
+							</div>
+
+							<div class="item" ng-class="carbuenoaires">
+								<label>
+									<img src="/planeticket/assets/images/buenoaires.jpg" alt="buenoaires">
+									Buenos Aires
+									<button ng-show="btnBuenoaires" class="btn btn-success ng-hide" ng-click="validateFly('buenoaires')">
+										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									</button>
+								 	<button ng-show="!btnBuenoaires" class="btn btn-danger ng-hide" ng-click="cancelFly('buenoaires')">
+								 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								 	</button>
+								</label>
+							</div>
+						</div>
+
+						<!-- Left and right controls -->
+						<a class="left carousel-control" href="#flyCarousel" role="button" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="right carousel-control" href="#flyCarousel" role="button" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="custofly">
+					<div class="col-md-4">
+						<h2> Client </h2>
+						<span ng-bind="custo.name"></span>
+						<span ng-bind="custo.surname"></span>
+						<span ng-bind="custo.phone"></span>
+						<span ng-bind="custo.email"></span>
+					</div>
+					<div class="col-md-4">
+						<h2> Vols </h2>
+						<ul>
+							<li ng-repeat="fly in fligths">
+								<span ng-bind="fly.destination"></span>
+							</li>
+						</ul>
+					</div>
+	
+				</div>
+			</div>
+
+
+		</section>
+
+
+		<footer>
+			<section>
+				<h3> A propos </h3>
+				<ul>
+					<li><span><a href="#">Qui sommes nous</a></span></li>
+					<li><span><a href="#">Partenaires</a></span></li>
+					<li><span><a href="#">Contact</a></span></li>
+					<li><span><a href="#">Ingos légales</a></span></li>
+				</ul>
+			</section>
+			<section>
+				<h3> Plan du site </h3>
+				<ul>
+					<li><span><a href="#">Accueil</a></span></li>
+					<li><span><a href="#">Client</a></span></li>
+					<li><span><a href="#">Vols</a></span></li>
+					<li><span><a href="#">Synthèse</a></span></li>
+				</ul>
+			</section><section>
+				<h3> Newsletter </h3>
+				<p>
+				Abonnez-vous à notre newsletter et recevez chaque semaine une sélection des meilleurs plans de street art autour du monde.
+
+				</p>
+				<button type="button" class="btn btn-info">S'inscrire</button>
+
+			</section>
+
+			
+
+
+			<!-- Scripts -->
+			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+			<script type="text/javascript" src="node_modules/angular/angular.min.js" ></script>
+			<script type="text/javascript" src="assets/scripts/core/app.js" charset="utf-8"></script>
+			<script type="text/javascript" src="assets/scripts/controllers/home-controller.js" charset="utf-8"></script>
+			<script type="text/javascript" src="assets/scripts/bootstrap-responsive-tabs-master/js/responsive-tabs.js" charset="utf-8"></script>
+			<script type="text/javascript" src="assets/scripts/core/boot.js" charset="utf-8"></script>
+		</footer>
+	</div>
+</body>
+</html>

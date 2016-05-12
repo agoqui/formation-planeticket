@@ -1,0 +1,17 @@
+@first-color : #272322;
+@second-color : #562929;
+@third-color : #272322;
+
+
+header {
+	background: url(/planeticket/assets/images/header1.jpg) no-repeat center fixed; 
+	height: 300px;
+}
+
+.flyOKClass {
+	border : 5px solid green;
+}
+
+.flyKOClass {
+	border: 0px solid red;
+}
