@@ -5,7 +5,13 @@ mainApp.controller('HomeController', ['$scope', 'flightsList', function($scope,$
 	$scope.custoDisabled = false;
 	$scope.fligths = [];
 
-	$scope.fligths = $flightsList.getFlights();
+	 $flightsList.getFlights().then(
+	 	function ok(data){
+		$scope.fligths =data;
+	}, function error(err){
+		console.log('Fichier Json en erreur!'+ err.status+':'+err.statusText)
+	});
+	
 	$scope.custoSaved = false;
 
 	$scope.custoChange = function(){
@@ -77,7 +83,7 @@ mainApp.controller('HomeController', ['$scope', 'flightsList', function($scope,$
 
 	};
 
-	
+
 	$scope.cancelFly = function(number, indexTour, indexVol){
 		var tmp = [];
 		$scope.custosyntFly.forEach(function(val){	
