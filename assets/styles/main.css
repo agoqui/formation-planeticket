@@ -1,14 +1,139 @@
-@first-color : #272322;
-@second-color : #562929;
-@third-color : #272322;
-header {
-  background: url(/planeticket/assets/images/header1.jpg) no-repeat center fixed;
-  height: 300px; }
+/*$first-color : #f1404b;
+$second-color : #dddfe6;
+$third-color : #f4f5f9;
+$fird-color : #252c41;*/
+body {
+  background-color: #f4f4f4;
+  background: url(/planeticket/assets/images/header1.jpg) no-repeat center fixed; }
 
+header {
+  height: 250px; }
+  header h1 {
+    font-family: "Slackey", serif;
+    font-size: 50pt;
+    text-align: center;
+    color: #fff;
+    text-shadow: 5px 5px 5px #ee2560; }
+
+.home {
+  margin: 50px;
+  font-family: "Slackey", serif;
+  font-size: 20pt;
+  text-align: center;
+  color: #fff;
+  background-color: #ee2560; }
+
+.container-inner {
+  height: 600px; }
+  .container-inner .nav li a {
+    font-family: "Slackey", serif;
+    font-size: 15pt; }
+
+.tab-content {
+  padding: 5px;
+  background-color: #ee2560;
+  height: 100%; }
+  .tab-content label {
+    color: #fff;
+    font-size: 15pt;
+    font-family: "Slackey", serif; }
+
+/****  Caroussel ****/
 .flyOKClass {
-  border: 5px solid green; }
+  box-shadow: 2px 2px 5px #45d9fd; }
 
 .flyKOClass {
-  border: 0px solid red; }
+  box-shadow: 0px 0px 0px #45d9fd; }
+
+.carousel .item {
+  height: 400px;
+  margin: 5px;
+  border: 5px solid #fff; }
+  .carousel .item label {
+    margin: 10px;
+    font-family: "Slackey", serif;
+    font-size: 20pt;
+    text-align: center;
+    color: #fff;
+    text-shadow: 5px 5px 5px #ee2560; }
+
+.portfolio {
+  width: 100%;
+  height: 200px;
+  margin: 5px;
+  border: 5px solid #fff;
+  font-family: "Slackey", serif;
+  font-size: 20pt;
+  text-align: center;
+  color: #fff;
+  text-shadow: 5px 5px 5px #ee2560; }
+
+.portfolio:hover {
+  border: 5px solid #45d9fd; }
+
+.modal-body {
+  height: 100%; }
+
+.synthese {
+  background-color: #ee2560;
+  height: auto; }
+  .synthese h2 {
+    margin: 10px;
+    font-size: 20pt;
+    text-align: center;
+    text-decoration: underline;
+    font-family: "Slackey", serif;
+    color: #fff; }
+  .synthese label {
+    margin: 5px;
+    font-size: 12pt;
+    text-align: left;
+    font-family: "Slackey", serif;
+    color: #fff; }
+  .synthese .syntVol {
+    margin: 2px;
+    padding: 5px;
+    width: 150px;
+    height: 180px;
+    float: left;
+    box-shadow: 2px 2px 5px #fff; }
+    .synthese .syntVol button {
+      float: right; }
+
+footer section {
+  color: #ffffff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 250px;
+  width: 100%;
+  background-color: #08182b; }
+  footer section h3 {
+    font-family: "Slackey", serif;
+    font-size: 10pt;
+    text-align: center;
+    color: #fff;
+    text-shadow: 5px 5px 5px #ee2560; }
+  footer section ul {
+    list-style-type: none; }
+    footer section ul li a {
+      color: #ffffff; }
+
+/*****     MEDIA QUERIES *****/
+/* Small devices (tablets, 768px and up) */
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .portfolio img {
+    width: 500px;
+    height: 100px; } }
+/* Medium devices (desktops, 992px and up) */
+@media screen and (min-width: 768px) and (max-width: 992px) and (orientation: landscape) {
+  .portfolio img {
+    width: 800px;
+    height: 200px; } }
+/* Large devices (large desktops, 1200px and up) */
+@media screen and (min-width: 993px) {
+  .portfolio img {
+    width: 200px;
+    height: 100px; } }
 
 /*# sourceMappingURL=main.css.map */

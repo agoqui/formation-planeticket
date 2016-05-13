@@ -5,6 +5,10 @@
 	<meta charset="UTF-8">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/styles/main.css">
+	
+	<link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Slackey">
+
 </head>
 <body ng-app="planeticketApp">
 	<div class="container" ng-controller="HomeController">
@@ -14,7 +18,7 @@
 		</header>
 
 		<!-- ********* NAV ************-->
-		<section>
+		<section class="container-inner">
 			<ul class="nav nav-tabs responsive" role="tablist" id="appTab">
 				<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Accueil</a></li>
 		    	<li role="presentation"><a href="#customer" aria-controls="clients" role="tab" data-toggle="tab">Client</a></li>
@@ -25,14 +29,17 @@
 			<!-- Tab panes -->
 			<div class="tab-content responsive">
 	
-			<!-- ********* Client ************-->
-				<div role="tabpanel" class="tab-pane active" id="home">
+			<!-- ********* Home ************-->
+				<div role="tabpanel" class="tab-pane active home" id="home">
 					<p class="text-justify lead">
-						Enregistrez-vous <br/> Sélectionnez le vols qui vous fait rêver!<br/>
-						Nous nous occupons de tout le reste... <br/>
-						Visualisez votre sélection dans la synthèse.
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, amet tempore nemo voluptate voluptatem est nisi corporis? Sint, ipsam. Blanditiis provident, non odio incidunt nemo asperiores reiciendis in. Deserunt, numquam!
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia tempore totam recusandae rem quidem officia excepturi iste quas aliquam, iure. Quis soluta tenetur rem aut facere, libero, neque ipsa ullam.
+						Vous avez une destination de rêve...
+						<br/><br/>Vous aimez le street art...
+						<br/><br/> Alors venez découvrir cette destination par son street art...
+						<br/><br/>Enregistrez-vous 
+						<br/> Sélectionnez le ou les vols qui vous font rêver!
+						<br/>
+						Et Nous nous occupons de tout le reste... <br/>
+						
 					</p>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="customer">
@@ -40,20 +47,20 @@
 						<div class="form-group">
 							<label for="name" class="hidden-xs hidden-sm col-md-2">Nom</label>
 							<div class="col-sm-12 col-md-10">
-								<input type="text" ng-model="custo.name" class="form-control" id="name" placeholder="Nom" ng-disabled="custoDisabled">
+								<input type="text" ng-model="custo.name" class="form-control" id="name" placeholder="Nom" ng-disabled="custoDisabled"  ng-change="custoChange()">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="surname" class="hidden-xs hidden-sm col-md-2">Prénom</label>
     						<div class="col-sm-12 col-md-10">
-    							<input type="text" ng-model="custo.surname" class="form-control" id="surname" placeholder="Prénom" ng-disabled="custoDisabled">
+    							<input type="text" ng-model="custo.surname" class="form-control" id="surname" placeholder="Prénom" ng-disabled="custoDisabled"  ng-change="custoChange()">
     						</div>
 						</div>
     					<div class="form-group">
 							<label for="phone" class="hidden-xs hidden-sm col-md-2">Tél</label>
     						<div class="col-sm-12 col-md-10">
     							<input type="text"
-    							 ng-model="custo.phone" class="form-control" id="phone" placeholder="Tél"  ng-disabled="custoDisabled">
+    							 ng-model="custo.phone" class="form-control" id="phone" placeholder="Tél"  ng-disabled="custoDisabled" ng-change="custoChange()">
     							 <span class="text-danger col-sm-offset-3" ng-show="!custoForm.$valid">
                     				Numéro de téléphone non valide!
                 				</span>
@@ -62,13 +69,14 @@
     					<div class="form-group">
 							<label for="email" class="hidden-xs hidden-sm col-md-2">Email</label>
     						<div class="col-sm-12 col-md-10">
-    							<input type="email" ng-model="custo.email" class="form-control" id="email" placeholder="Email"  ng-disabled="custoDisabled">
+    							<input type="email" ng-model="custo.email" class="form-control" id="email" placeholder="Email"  ng-disabled="custoDisabled" ng-change="custoChange()">
     							<span class="text-danger col-sm-offset-3" ng-show="custoForm.email.$error">
                     				Email non valide!
                 				</span>
     						</div>
 						</div>
-						<button type="submit" class="btn btn-primary btn-lg">Enregistrez-vous</button>
+						<button type="submit" class="btn btn-primary btn-lg" ng-if="!custoSaved"><label>Enregistrez-vous</label></button>
+						<button type="submit" class="btn btn-success btn-lg" ng-if="custoSaved"><label>Données sauvegardées</label></button>
 
 					</form>
 				</div>
@@ -78,65 +86,48 @@
 					<div id="flyCarousel" class="carousel slide" data-ride="carousel">
 						<!-- Indicators -->
 						<ol class="carousel-indicators">
-							<li data-target="#flyCarousel" data-slide-to="0" class="active"></li>
-							<li data-target="#flyCarousel" data-slide-to="1"></li>
-							<li data-target="#flyCarousel" data-slide-to="2"></li>
-							<li data-target="#flyCarousel" data-slide-to="3"></li>
+							<li data-target="#flyCarousel"  ng-repeat="(key, value) in fligths" data-slide-to="{{key}}" class="active"></li>
 						</ol>
 
-						<!-- Wrapper for slides -->
 						<div class="carousel-inner" role="listbox">
-							<div class="item active flyOkClass" ng-class="carsalvador">
-								<label>
-								<img src="/planeticket/assets/images/salvador.jpg" alt="salvador">
-								Salvador Da Bahia
-								<button ng-show="btnSalvador" class="btn btn-success ng-hide" ng-click="validateFly('salvador')">
+							<div class="item" ng-repeat="(key, value) in fligths" ng-class="car{{$index}}" 
+							 style="background: url(/planeticket/assets/images/{{value.destination}}.jpg) no-repeat center;">
+						
+								<label ng-bind="value.name">
+								
+								</label>
+								<button ng-show="!btn{{$index}}" class="btn-lg btn-success ng-hide"  data-toggle="modal" data-target="#myModal{{$index}}">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 								</button>
-								<button ng-show="!btnSalvador"  class="btn btn-danger ng-hide" ng-click="cancelFly('salvador')">
-									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								</button>
 
-								</label>
-							</div>
+										<!-- Button trigger modal -->
 
-							<div class="item" ng-class="carbarcelona">
-								<label>
-									<img src="/planeticket/assets/images/barcelona.jpg" alt="barcelona">
-									Barcelona
-									<button  ng-show="btnBarcelona" class="btn btn-success ng-hide" ng-click="validateFly('barcelona')">
-										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-									</button>
-								 	<button  ng-show="!btnBarcelona" class="btn btn-danger ng-hide" ng-click="cancelFly('barcelona')">
-								 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								 	</button>
-								</label>
-							</div>
+								<!-- Modal -->
+								<div class="modal fade" id="myModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								        <h4 class="modal-title" id="myModalLabel">Choisissez vos vols pour {{value.name}} : </h4>
+								      </div>
 
-							<div class="item" ng-class="carlisboa">
-								<label>
-									<img src="/planeticket/assets/images/lisboa.jpg" alt="lisboa">
-									Lisboa
-									<button ng-show="btnLisboa" class="btn btn-success ng-hide" ng-click="validateFly('lisboa')">
-										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-									</button>
-								 	<button ng-show="!btnLisboa" class="btn btn-danger ng-hide" ng-click="cancelFly('lisboa')">
-								 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								 	</button>
-								</label>
-							</div>
+								    	<div class="modal-body" ng-repeat="(keyFlight, valFlight) in value.flight">
+											<a href="#"  ng-click="validateFly(key,keyFlight)" >
+											<div class="portfolio col-xs-12 col-sm-12 col-md-6" style="background: url(/planeticket/assets/images/{{value.destination}}/{{keyFlight}}.jpg) no-repeat center;" ng-class="flight{{key}}{{keyFlight}}">
+												<span>Vol n°<label ng-bind="valFlight.number"></label> </span>
+												<br/>
+												<span> Le <label ng-bind="valFlight.date"></label></span>
+												  
+											</div>
+											</a>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
 
-							<div class="item" ng-class="carbuenoaires">
-								<label>
-									<img src="/planeticket/assets/images/buenoaires.jpg" alt="buenoaires">
-									Buenos Aires
-									<button ng-show="btnBuenoaires" class="btn btn-success ng-hide" ng-click="validateFly('buenoaires')">
-										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-									</button>
-								 	<button ng-show="!btnBuenoaires" class="btn btn-danger ng-hide" ng-click="cancelFly('buenoaires')">
-								 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								 	</button>
-								</label>
 							</div>
 						</div>
 
@@ -151,21 +142,28 @@
 						</a>
 					</div>
 				</div>
-				<div role="tabpanel" class="tab-pane" id="custofly">
+				<div role="tabpanel" class="tab-pane synthese" id="custofly">
 					<div class="col-md-4">
 						<h2> Client </h2>
-						<span ng-bind="custo.name"></span>
-						<span ng-bind="custo.surname"></span>
-						<span ng-bind="custo.phone"></span>
-						<span ng-bind="custo.email"></span>
+						<div class="row">
+							<div class="cols-sm-12" ><label ng-bind="custosynt.name"></label></div>
+							<div class="cols-sm-12" ><label ng-bind="custosynt.surname"></label></div>
+							<div class="cols-sm-12" ><label ng-bind="custosynt.phone"></label></div>
+							<div class="cols-sm-12" ><label ng-bind="custosynt.email"></label></div>
+						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-8">
 						<h2> Vols </h2>
-						<ul>
-							<li ng-repeat="fly in fligths">
-								<span ng-bind="fly.destination"></span>
-							</li>
-						</ul>
+						<div ng-repeat="custofly in custosyntFly" class="syntVol">
+								<button class="btn btn-danger" ng-click="cancelFly(custofly.number,custofly.indexTour,custofly.indexVol)">
+									<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+								</button>
+								<label ng-bind="custofly.number"></label>
+								<label ng-bind="custofly.name"></label>
+								<label ng-bind="custofly.date"></label>
+
+						</div>
+						
 					</div>
 	
 				</div>
@@ -176,24 +174,26 @@
 
 
 		<footer>
-			<section>
+
+			<section class="col-md-4 hidden-xs hidden-sm">
 				<h3> A propos </h3>
 				<ul>
-					<li><span><a href="#">Qui sommes nous</a></span></li>
-					<li><span><a href="#">Partenaires</a></span></li>
-					<li><span><a href="#">Contact</a></span></li>
-					<li><span><a href="#">Ingos légales</a></span></li>
+					<li><span><a href="#"><i class="glyphicon glyphicon-chevron-right"> Qui sommes nous</i></a></span></li>
+					<li><span><a href="#"><i class="glyphicon glyphicon-chevron-right"> Partenaires</i></a></span></li>
+					<li><span><a href="#"><i class="glyphicon glyphicon-chevron-right"> Contact</i></a></span></li>
+					<li><span><a href="#"><i class="glyphicon glyphicon-chevron-right"> Ingos légales</i></a></span></li>
 				</ul>
 			</section>
-			<section>
+			<section class="col-md-4 hidden-xs hidden-sm">
 				<h3> Plan du site </h3>
 				<ul>
-					<li><span><a href="#">Accueil</a></span></li>
-					<li><span><a href="#">Client</a></span></li>
-					<li><span><a href="#">Vols</a></span></li>
-					<li><span><a href="#">Synthèse</a></span></li>
+					<li><span><a href="#"><i class="glyphicon glyphicon-chevron-right"> Accueil</i></a></span></li>
+					<li><span><a href="#"><i class="glyphicon glyphicon-chevron-right"> Client</i></a></span></li>
+					<li><span><a href="#"><i class="glyphicon glyphicon-chevron-right"> Vols</i></a></span></li>
+					<li><span><a href="#"><i class="glyphicon glyphicon-chevron-right"> Synthèse</i></a></span></li>
 				</ul>
-			</section><section>
+			</section>
+			<section class="col-md-4 hidden-xs hidden-sm">
 				<h3> Newsletter </h3>
 				<p>
 				Abonnez-vous à notre newsletter et recevez chaque semaine une sélection des meilleurs plans de street art autour du monde.
@@ -203,7 +203,6 @@
 
 			</section>
 
-			
 
 
 			<!-- Scripts -->
@@ -211,6 +210,7 @@
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 			<script type="text/javascript" src="node_modules/angular/angular.min.js" ></script>
 			<script type="text/javascript" src="assets/scripts/core/app.js" charset="utf-8"></script>
+			<script type="text/javascript" src="assets/scripts/core/factories/flights-list.js" charset="utf-8"></script>
 			<script type="text/javascript" src="assets/scripts/controllers/home-controller.js" charset="utf-8"></script>
 			<script type="text/javascript" src="assets/scripts/bootstrap-responsive-tabs-master/js/responsive-tabs.js" charset="utf-8"></script>
 			<script type="text/javascript" src="assets/scripts/core/boot.js" charset="utf-8"></script>
